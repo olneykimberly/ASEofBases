@@ -21,7 +21,7 @@ struct cmp_char {
 
 
 
-
+//comment this?
 typedef std::map <char*,int,cmp_char> aMap;
 
 
