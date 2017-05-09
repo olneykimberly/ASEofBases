@@ -1,29 +1,30 @@
 #!/bin/bash
 
 #############
-# What: This set of bash commands downloads initial data and does some processing 
+# What: This set of bash commands downloads initial data and does some processing
 #
 #		For all Individuals, chromosomes, and population:
 #
 # 		VCFmergeGTF
-#		This code is merging the genotype calls (from vcf) with position of 
+#		This code is merging the genotype calls (from vcf) with position of
 #		protein coding genes (from gencode)
 #
-# 		ANGSD must be verison 0.563 for the -f (filter) opition 
-#		Use ANGSD to get counts, mapq filter 40, remove duplicates from BAM files 
+# 		ANGSD must be verison 0.563 for the -f (filter) opition
+#		Use ANGSD to get counts, mapq filter 40, remove duplicates from BAM files
 #
 # 		Getliners
-#		Merge the tmp.keys (positions) with	
+#		Merge the tmp.keys (positions) with
 #		tmp.het (heterozygous protein coding SNPs for individual)
 #		greps the set of keys in tmp.keys in column 2 of the file tmp.het
 #
 # 		ieatgor
 # 		Filter for alignability output chr$chr.ind$ind.data
-#		greps any entry in tmp.data that has chromosome and position within the regions 
+#		greps any entry in tmp.data that has chromosome and position within the regions
 #		specified in the "targetfile" (regions of the genome that are "callable")
 #############
 
 ind=$1
+
 chr=$2
 pop=$3
 outdir=$4
@@ -73,8 +74,8 @@ paste $outdir/tmp.counts.protein_coding.snps.pos $outdir/tmp.counts.protein_codi
 
 ### FILTERING GtfVcf DATA AND MERGING WITH COUNTS
 cut -f2 $outdir/tmp.counts.protein_coding.snps.chr$chr > $outdir/tmp.keys
-# tmp.counts.protein_coding.snps.chr$chr is the chr, position, and counts 
-# tmp.keys is a list of the positions 
+# tmp.counts.protein_coding.snps.chr$chr is the chr, position, and counts
+# tmp.keys is a list of the positions
 
 $GETLINERS -c 2 -k $outdir/tmp.keys -f $outdir/tmp.het > $outdir/tmp.covered.snps.info
 
