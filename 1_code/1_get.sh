@@ -13,7 +13,7 @@
 
 
 # Define directories
-#Location of logfile
+#Location of logfile # Me testing 
 LOG_FILE=$PWD/get_sh.log
 touch $LOG_FILE
 #!! Changed absolute paths to relative paths
